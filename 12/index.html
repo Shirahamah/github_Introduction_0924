@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript Practice</title>
+    <style>
+        #item {
+            margin: 50px 0px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: skyblue;
+            cursor: pointer;
+            transition: .8s;
+            margin: 0 8px 8px;
+            text-align: center;
+            line-height: 100px;
+        }
+
+        .btn {
+            text-align: center;
+        }
+
+        .win {
+            background: pink;
+            border-radius: 50%;
+            transform: rotate(360deg);
+        }
+
+        .lose {
+            transform: scale(0.9);
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div id="item"></div>
+    
+    <div class="btn">
+        <button id="resetbtn">リセット</button>
+    </div>
+    <script>
+        'use strict'
+        const num = 5;
+        const winner = Math.floor(Math.random() * num);
+        const resetbtn = document.getElementById('resetbtn');
+        resetbtn.disabled = true;
+
+        // divの生成
+        for (let i = 0; i < num; i++) {
+            const div = document.createElement('div');
+            div.classList.add('box');
+            
+            // div要素クリック時の処理
+            div.addEventListener('click', () => {
+                if (i === winner) {
+                    div.textContent = 'Win!'
+                    div.classList.add('win')
+                    resetbtn.disabled = false;
+                } else {
+                    div.textContent = 'Lose!'
+                    div.classList.add('lose')
+                }
+            });
+            document.getElementById('item').appendChild(div);    
+        }
+
+        // リセットボタンクリック時の処理
+        resetbtn.addEventListener('click', () => {
+            
+            var div1 = document.getElementById('item');
+            var div1Paras = div1.getElementsByTagName('div');
+
+            var selects = Array.prototype.slice.call(div1Paras);
+            selects.forEach(element => {
+                element.classList.remove('win');
+                element.classList.remove('lose');
+                element.textContent = '';
+            });
+
+            resetbtn.disabled = true;
+        });
+    </script>
+</body>
+</html>  
